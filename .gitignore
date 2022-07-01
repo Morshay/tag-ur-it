@@ -1,6 +1,5 @@
 *.jpg
-/samples
-
+/to_add
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
