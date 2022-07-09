@@ -14,6 +14,8 @@ from torch.utils.data import Dataset, DataLoader
 import torchvision
 from torchvision import transforms as T
 
+from torchinfo import summary
+
 dev = torch.device(('cpu', 'cuda')[torch.cuda.is_available()])
 
 # dataset
@@ -46,10 +48,10 @@ preprocess = T.Compose([
     T.Normalize(
         mean=[0.485, 0.456, 0.406],
         std=[0.229, 0.224, 0.225]
-    ),
+    )
 ])
 
-# d
+# dataset class
 
 class DanbooruDataset(Dataset):
 
@@ -72,6 +74,8 @@ class DanbooruDataset(Dataset):
         labels = self.target_transform(self.label_data.iloc[idx, 1])
         return image.to(dev), labels.to(dev)
 
+# output layers on top of effnet
+
 def bn_drop_lin(in_size, out_size):
     return nn.Sequential(
         nn.BatchNorm1d(
@@ -83,6 +87,8 @@ def bn_drop_lin(in_size, out_size):
         nn.Dropout(p=0.25, inplace=False),
         nn.Linear(in_size, out_size)
     )
+
+# model class
 
 class EffnetTagger(nn.Module):
     def __init__(self,
