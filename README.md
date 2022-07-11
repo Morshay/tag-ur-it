@@ -11,8 +11,8 @@
 The dataprep process can be seen in the files, but in short:
 - I removed all non-tag related metadata, the non 'general' labeled tags, and removed data for images not marked as 'safe'.
 - I ranked the tags by usage, took those with 10K or above, and removed the rest from the metadata.
-- I removed any image (both file and data) which had below 5 or above 20 tags - which left me with 10K images for training, 10 for validation, and 
+- I deleted any image (both file and data) which had below 5 or above 20 tags, and 'old' images (label below 1mil) - which left me with 11K images for training, 1.2K for validation, and another 1.2K for testing.
 
-I trained the entire model for 100 epochs using around 1000 train images and 100 val images. later on I exposed the model to the rest of the data (in total 10K train and 1K val), and froze the efficientnet layers with the state dict up to that moment.
+I trained the entire model for 100 epochs (batch size of 32) using around 1000 train images and 100 val images. later on I exposed the model to the rest of the data, increased batch size to 256, and froze the efficientnet layers with the state dict up to that moment.
 
 The entire thing is extremely bare-bones since it's a hand-in project. i do plan on expanding it to include much, much more as i venture forward into the anime-deep-learning space.
